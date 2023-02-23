@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>exec-commend</title>
+
+		<style>
+			* {
+				border: 0;
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			input {
+				outline: none;
+			}
+			a {
+				text-decoration: none;
+			}
+			li {
+				text-decoration: none;
+			}
+			.container {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				width: 400px;
+			}
+			h2 {
+				text-align: center;
+			}
+			.desc {
+				margin-top: 30px;
+				padding: 10px;
+				outline: none;
+				width: 100%;
+				border: 1px solid rgb(149, 158, 20);
+			}
+
+			.copy {
+				background-color: #eee;
+				width: 100%;
+				text-align: center;
+				padding: 10px;
+				border-radius: 10px;
+				margin-top: 10px;
+				cursor: pointer;
+			}
+			.copy > span {
+				font-size: 16px;
+				line-height: 21px;
+				font-weight: bold;
+			}
+			h3 {
+				text-align: center;
+				padding: 10px;
+			}
+			.paste {
+				width: 100%;
+				margin-top: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h2>Jacascript 복사기능</h2>
+			<textarea rows="6" id="desc" class="desc" name="desc"></textarea>
+			<div class="copy" onclick="copy();">
+				<span>복사</span>
+			</div>
+			<div class="paste">
+				<h3>붙여넣기</h3>
+				<textarea rows="6" class="desc" id="remove_desc"></textarea>
+			</div>
+			<div class="copy" onclick="remove();">
+				<span>글 지우기</span>
+			</div>
+		</div>
+
+		<script>
+			// copy 함수
+			function copy() {
+				// copy를 원하는 돔을 가져온다.
+				const descVal = document.getElementById('desc');
+				// 가져온 돔에 value select한다.
+				descVal.select();
+				// execCommand API를 활용해서 copy를한다.
+				const returnValue = document.execCommand('copy');
+
+				if (returnValue) {
+					alert('복사를 완료했습니다.');
+					descVal.value = '';
+				}
+			}
+
+			//붙여넣기 글 지우기
+			function remove() {
+				const descVal = document.getElementById('remove_desc');
+				descVal.value = '';
+			}
+		</script>
+	</body>
+</html>

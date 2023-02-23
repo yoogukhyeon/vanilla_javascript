@@ -1,3 +1,9 @@
 # vanilla_javascript
-<br>
+
 ### scroll-active
+
+> window.scroll() 사용
+
+### exec-commend
+
+> execCommand() API 사용
