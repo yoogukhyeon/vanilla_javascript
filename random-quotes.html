@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Random-quotes</title>
+
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				border: 0;
+				box-sizing: border-box;
+			}
+			a {
+				list-style: none;
+			}
+			li {
+				text-decoration: none;
+			}
+
+			.container {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			#quote > p {
+				background: #eee;
+				font-size: 18px;
+				line-height: 24px;
+				font-weight: bold;
+				padding: 30px;
+				border-radius: 10px;
+				word-wrap: break-word;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="quote">
+				<p></p>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		//명언 배열
+		const quotes = [
+			{
+				quote: '모든 인간의 생활은 자기자신에의 길이며, 하나의 시도이다. -헤세',
+			},
+			{
+				quote: '사랑을 받는 것은 행복이 아니다. 사랑하는 것이야말로 행복이다. -헤세',
+			},
+			{
+				quote: '인간은 각자 모두 자신의 운명을 손에 쥐고 있다. 완전히 자신의 작품이며 자신의 것인 생활을 창조하지 않으면 안 된다. -헤세',
+			},
+			{
+				quote: '중요한 일은 다만 자기에게 지금 부여된 길을 한결같이 똑바로 나아가고, 그것을 다른 사람들의 길과 비교하거나 하지 않는 것이다. -헤세',
+			},
+			{
+				quote: '행복하다는 것은 소망을 가지는 것을 말한다. -헤세',
+			},
+			{
+				quote: '큰 일에는 진지하게 대하지만 작은 일에는 손을 빼는 것이 당연하다고 생각하는 것, 몰락은 언제나 여기에서 시작된다.',
+			},
+			{
+				quote: '고통에서 도피하지 말라. 고통의 밑바닥이 얼마나 감미로운가를 맛보라.',
+			},
+		];
+
+		function quoteFun() {
+			//Math.random API 사용 (랜덤으로 무작위 숫자를 제공)
+			const quote = document.querySelector('#quote p');
+			//Math.random 소수점 반환해주기 때문에 Math.floor API 사용해서 소수점을 버린다.
+			//floor 사용하는 이유는 1.99999 random 값을 반환했을때 우리는 1 정수가 필요함
+			const nowQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+			quote.innerText = nowQuote.quote;
+		}
+
+		//함수실행
+		quoteFun();
+	</script>
+</html>
