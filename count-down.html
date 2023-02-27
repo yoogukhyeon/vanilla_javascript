@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Count-down</title>
+
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				border: 0;
+				box-sizing: border-box;
+			}
+			a {
+				text-decoration: none;
+			}
+			li {
+				list-style: none;
+			}
+
+			section {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				display: flex;
+				align-content: space-between;
+				justify-content: center;
+				gap: 25px;
+			}
+
+			.deadline > ul {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				gap: 25px;
+				margin: 15px 0;
+			}
+
+			.deadline > ul > li > h4 {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 15px;
+				width: 70px;
+				height: 70px;
+				background-color: #222;
+				color: #fff;
+				outline: none;
+			}
+
+			.deadline > ul > li > span {
+				text-align: center;
+				display: inline-block;
+				padding: 3px 0;
+				width: 100%;
+			}
+
+			.expired {
+				padding: 10px 0;
+				color: red;
+				font-weight: bold;
+				font-size: 21px;
+			}
+		</style>
+	</head>
+	<body>
+		<section>
+			<article>
+				<img src="./img/images.jfif" alt="img" />
+			</article>
+			<article>
+				<h3>old mac book</h3>
+				<h4>중고 맥북 할인 행사</h4>
+				<p class="expired"></p>
+				<div class="deadline">
+					<ul>
+						<li class="deadline_format">
+							<h4 class="days">3</h4>
+							<span>days</span>
+						</li>
+						<li class="deadline_format">
+							<h4 class="hours">5</h4>
+							<span>hours</span>
+						</li>
+						<li class="deadline_format">
+							<h4 class="mins">7</h4>
+							<span>mins</span>
+						</li>
+						<li class="deadline_format">
+							<h4 class="sec">8</h4>
+							<span>sec</span>
+						</li>
+					</ul>
+				</div>
+			</article>
+		</section>
+
+		<script>
+			//달 & 요일 셋팅!
+			const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+			//시간 dom 찾기
+			const times = document.querySelectorAll('.deadline_format  h4');
+
+			//new Date 인스턴스 선언
+			//미래 특정 시간을 설정
+			//년, 월, 일, 시, 분, 초
+			let futureDate = new Date(2023, 2 - 1, 27, 12, 40, 0);
+
+			//년도를 찾는다.
+			const year = futureDate.getFullYear();
+			//시간을 찾는다.
+			const hours = futureDate.getHours();
+			//분을 찾는다.
+			const mins = futureDate.getMinutes();
+			//초를 찾는다.
+			const sec = futureDate.getSeconds();
+
+			//달을 찾는다.
+			let month = futureDate.getMonth();
+			//찾은 달에 값을 달 배열에서 찾는다.
+			month = months[month];
+
+			//요일을 찾는다.
+			let weekday = futureDate.getDay();
+			//찾은 요일을 값을 요일 배열에서 찾는다.
+			weekday = weekdays[weekday];
+
+			//시간 셋팅
+			//Date시간을 밀리초로 환산한다.
+			const futureTime = futureDate.getTime();
+
+			//남아있는 시간을 비교하는 함수
+			function getRemainingTime() {
+				//현재 시간과 비교한다.
+				const today = new Date().getTime();
+
+				//남아있는 시간을 구한다.
+				//futureTime과 today 밀리초에 남은시간을 구한다.
+				const remainTime = futureTime - today;
+
+				//하루, 한시간, 일분을 밀리세컨드로 변환
+				const oneDay = 24 * 60 * 60 * 1000;
+				const oneHour = 60 * 60 * 1000;
+				const oneMinute = 60 * 1000;
+
+				// 남은시간을 oneDay 시간과 비교해서 요일 남은 시간을 구한다.
+				// Math.floor 소수점을 버리고 가장큰 정수로 값을 반환
+				let days = remainTime / oneDay;
+				days = Math.floor(days);
+
+				let hours = Math.floor((remainTime % oneDay) / oneHour);
+				let mins = Math.floor((remainTime % oneHour) / oneMinute);
+				let sec = Math.floor((remainTime % oneMinute) / 1000);
+
+				const values = [days, hours, mins, sec];
+
+				//시간이 10 아래는 앞에 0 숫자 셋팅 함수
+				function format(item) {
+					if (item < 10) return (item = `0${item}`);
+
+					return item;
+				}
+
+				//times dom 배열에 값 셋팅
+				times.forEach((item, idx) => {
+					item.innerHTML = format(values[idx]);
+				});
+
+				//남아있는 시간이 0일경우 interval 종료
+				if (remainTime < 0) {
+					clearInterval(countDown);
+					clearTime();
+				}
+
+				//시간이 종료이후 값을 00 변환 & text 노출
+				function clearTime() {
+					let days = 0;
+					let hours = 0;
+					let mins = 0;
+					let sec = 0;
+
+					const values = [days, hours, mins, sec];
+
+					times.forEach((item, idx) => {
+						item.innerHTML = format(values[idx]);
+					});
+					const expired = document.querySelector('.expired');
+					expired.innerText = '할인 행사가 종료되었습니다.';
+				}
+			}
+
+			//setInterval 함수로 count 사용
+			let countDown = setInterval(getRemainingTime, 1000);
+
+			//함수 실행
+			getRemainingTime();
+		</script>
+	</body>
+</html>
