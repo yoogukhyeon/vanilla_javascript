@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>question</title>
+
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+			integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<style>
+			* {
+				border: 0;
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			.questions {
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+				width: 100%;
+				max-width: 500px;
+			}
+			h2 {
+				text-align: center;
+				font-size: 24px;
+				line-height: 30px;
+				margin: 10px 0;
+			}
+
+			.question_wrap {
+				background-color: #eee;
+				border-radius: 10px;
+				overflow: hidden;
+				padding: 0 20px;
+			}
+
+			.question_wrap + .question_wrap {
+				margin-top: 50px;
+			}
+
+			.question_title {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				border-bottom: 1px solid #666;
+				padding: 20px;
+			}
+
+			i {
+				font-size: 24px;
+				cursor: pointer;
+			}
+
+			.question_txt {
+				margin-top: 15px;
+				height: 0;
+				transition: all 0.5 ease-in-out;
+			}
+
+			.show_text .question_txt {
+				height: auto;
+				padding: 10px;
+				transition: all 0.5 ease-in-out;
+			}
+
+			.minus {
+				display: none;
+			}
+
+			.show_text .minus {
+				display: block;
+			}
+
+			.show_text .plus {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<section class="questions">
+			<div class="tite">
+				<h2>QNA</h2>
+			</div>
+			<div class="question_wrap">
+				<article class="question">
+					<div class="question_title">
+						<p>첫번째 질문이 입니다.</p>
+						<button type="button" class="question_btn">
+							<span class="plus">
+								<i class="far fa-plus-square"></i>
+							</span>
+							<span class="minus">
+								<i class="far fa-minus-square"></i>
+							</span>
+						</button>
+					</div>
+					<div class="question_txt">
+						<p>LOREM DSIFWOAEIFAENGROEN IOERAJGFEARGOREANKJ ASDFVI AJEOFIJEW AWEFONEWOAIFJNAWEIOFNAWEOIFN AWEIOFJWAEOIFJAWOFJAWIEFO AWEFIJAWEOFIJEAWOFJOWEAIFUAWEBFAHKJDBVFKDJNFO IEAWFOIEAWJFOWA</p>
+					</div>
+				</article>
+			</div>
+
+			<div class="question_wrap">
+				<article class="question">
+					<div class="question_title">
+						<p>두번째 질문이 입니다.</p>
+						<button type="button" class="question_btn">
+							<span class="plus">
+								<i class="far fa-plus-square"></i>
+							</span>
+							<span class="minus">
+								<i class="far fa-minus-square"></i>
+							</span>
+						</button>
+					</div>
+					<div class="question_txt">
+						<p>LOREM DSIFWOAEIFAENGROEN IOERAJGFEARGOREANKJ ASDFVI AJEOFIJEW AWEFONEWOAIFJNAWEIOFNAWEOIFN AWEIOFJWAEOIFJAWOFJAWIEFO AWEFIJAWEOFIJEAWOFJOWEAIFUAWEBFAHKJDBVFKDJNFO IEAWFOIEAWJFOWA</p>
+					</div>
+				</article>
+			</div>
+
+			<div class="question_wrap">
+				<article class="question">
+					<div class="question_title">
+						<p>세번째 질문이 입니다.</p>
+						<button type="button" class="question_btn">
+							<span class="plus">
+								<i class="far fa-plus-square"></i>
+							</span>
+							<span class="minus">
+								<i class="far fa-minus-square"></i>
+							</span>
+						</button>
+					</div>
+					<div class="question_txt">
+						<p>LOREM DSIFWOAEIFAENGROEN IOERAJGFEARGOREANKJ ASDFVI AJEOFIJEW AWEFONEWOAIFJNAWEIOFNAWEOIFN AWEIOFJWAEOIFJAWOFJAWIEFO AWEFIJAWEOFIJEAWOFJOWEAIFUAWEBFAHKJDBVFKDJNFO IEAWFOIEAWJFOWA</p>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<script>
+			//질문에 dom을 찾는다.
+			const question = document.querySelectorAll('.question_wrap');
+
+			//찾은 dom에 순회
+			question.forEach((val) => {
+				//순회한 dom 자식에 버튼을 찾는다.
+				const btn = val.querySelector('.question_btn');
+
+				//찾은 버튼에 click 이벤트를 준다.
+				btn.addEventListener('click', () => {
+					//한번더 순회를 돌려서 클릭한 dom이 아니라면 class를 제거
+					question.forEach((item) => {
+						if (item !== val) {
+							item.classList.remove('show_text');
+						}
+					});
+
+					//클릭한 이벤트 class 추가
+					val.classList.toggle('show_text');
+				});
+			});
+		</script>
+	</body>
+</html>

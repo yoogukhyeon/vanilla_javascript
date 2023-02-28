@@ -29,3 +29,11 @@
 > clearInterval() 메소드 사용 <br>
 
 <br>
+
+### question FAQ (자주 묻는 질문)
+
+> document.querySelectorAll() 메소드 사용 <br>
+> addEventListener() 이벤트 사용 <br>
+> forEach() 메소드 사용 <br>
+> classList.remove() 메소드 사용 <br>
+> classList.toggle() 메소드 사용 <br>
