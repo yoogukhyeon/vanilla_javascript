@@ -90,6 +90,7 @@
 
 			form.addEventListener('submit', (e) => {
 				e.preventDefault();
+				//문자열을 숫자롤 변환
 				let value = parseInt(amount.value);
 
 				//switch 예외 처리
@@ -112,7 +113,6 @@
 				}
 
 				//switch 조건 통과시 무작위 text값 생성
-
 				//slice 활용해서 value 만큼 배열을 짜르고 sort 함수로 무작위 정렬을 한다.
 				let tempText = text.slice(0, value).sort(() => Math.random() - 0.5);
 
