@@ -37,3 +37,14 @@
 > forEach() 메소드 사용 <br>
 > classList.remove() 메소드 사용 <br>
 > classList.toggle() 메소드 사용 <br>
+
+<br>
+
+### dummy text (더미 텍스트)
+
+> parseInt() 함수 사용 <br> ** 문자열을 숫자로 변환 <br>
+> Math.floor() 메소드 사용 <br>
+> Math.random() 메소드 사용 <br>
+> isNaN() 메소드 사용 <br>
+> slice 함수 사용 <br> ** slice 함수는 원본 배열을 유지하고 새로운 배열을 반환. 즉 slice 배열을 수정해도 원본에 데이터는 유지 <br>
+> event.preventDefault() 이벤트 사용 <br>
