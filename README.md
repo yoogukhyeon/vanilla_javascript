@@ -48,3 +48,11 @@
 > isNaN() 메소드 사용 <br>
 > slice 함수 사용 <br> ** slice 함수는 원본 배열을 유지하고 새로운 배열을 반환. 즉 slice 배열을 수정해도 원본에 데이터는 유지 <br>
 > event.preventDefault() 이벤트 사용 <br>
+
+<br>
+
+### carousel (스와이프 기능 & 화살표 버튼 & 자동슬라이드)
+
+> addEventListener() 함수 사용 <br>
+> setInterval() 함수 사용 <br>
+> clearInterval() 함수 사용 <br>

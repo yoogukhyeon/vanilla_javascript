@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			.container {
+				width: 80%;
+				margin: 10px auto;
+			}
+
+			.carousel {
+				border: 2px solid #ccc;
+				height: 400px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			.slider {
+				height: 100%;
+				display: flex;
+				width: 400%;
+				transition: all 0.5s ease-in-out;
+			}
+			.slider > div {
+				flex-basis: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.controls .arrow {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				cursor: pointer;
+			}
+
+			.arrow.left {
+				left: 10px;
+			}
+			.arrow.right {
+				right: 10px;
+			}
+
+			.material-symbols-outlined {
+				font-size: 40px;
+			}
+
+			.controls > ul {
+				position: absolute;
+				bottom: 20px;
+				left: 50%;
+				transform: translateX(-50%);
+				list-style: none;
+				display: flex;
+			}
+
+			.controls > ul > li {
+				width: 14px;
+				height: 14px;
+				border: 2px solid #333;
+				border-radius: 50%;
+				margin: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				cursor: pointer;
+				background-color: #333;
+			}
+
+			.controls > ul > li.selected {
+				background: transparent;
+			}
+
+			.btn {
+				margin-top: 30px;
+				padding: 20px;
+				border-radius: 15px;
+				cursor: pointer;
+				background-color: #222;
+				color: #fff;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="carousel">
+				<div class="slider">
+					<div>content 1</div>
+					<div>content 2</div>
+					<div>content 3</div>
+					<div>content 4</div>
+				</div>
+				<div class="controls">
+					<span class="arrow left"><span class="material-symbols-outlined"> arrow_back_ios </span></span>
+					<span class="arrow right"><span class="material-symbols-outlined"> arrow_forward_ios </span></span>
+					<ul>
+						<li class="selected"></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+			<div>
+				<button class="btn" onclick="autoPlay()">AutoPlay 실행</button>
+			</div>
+		</div>
+
+		<script>
+			// html DOM을 selector
+			const slider = document.querySelector('.slider');
+			const sliderList = document.querySelectorAll('.slider > div');
+			const leftArrow = document.querySelector('.left');
+			const rightArrow = document.querySelector('.right');
+			const btn = document.querySelector('.btn');
+
+			const indicatorParents = document.querySelector('.controls ul');
+			const indicator = document.querySelectorAll('.controls li');
+
+			//slide 순서를 알기위한 변수
+			let sliderIndex = 0;
+
+			//오른쪽 화살표 버튼 클릭시
+			rightArrow.addEventListener('click', function () {
+				//slider안에 div 개수가 img 개수 있기 때문에 해당 개수 조건
+				//sliderIndex 0부터 시작이기 때문에 length -1을 한다.
+				sliderIndex = sliderIndex < sliderList.length - 1 ? sliderIndex + 1 : 0;
+				setIndex();
+				indicatorParents.children[sliderIndex].classList.add('selected');
+			});
+
+			leftArrow.addEventListener('click', function () {
+				sliderIndex = sliderIndex > 0 ? sliderIndex - 1 : sliderList.length - 1;
+				setIndex();
+				indicatorParents.children[sliderIndex].classList.add('selected');
+			});
+
+			//indicator 순회하면서 해당 클릭 이벤트시 해당 sliderIndex 순서로 교체
+			indicator.forEach((indi, idx) => {
+				indi.addEventListener('click', () => {
+					sliderIndex = idx;
+					setIndex();
+					indi.classList.add('selected');
+				});
+			});
+
+			//공통 함수
+			function setIndex() {
+				document.querySelector('.controls .selected').classList.remove('selected');
+				slider.style.transform = `translate(${sliderIndex * -25}%)`;
+			}
+
+			//autoplay 클릭시 autoplay
+			let check = false;
+			function autoPlay() {
+				check = changeChk(check);
+				const timer = setInterval(() => {
+					if (check) {
+						sliderIndex = sliderIndex < sliderList.length - 1 ? sliderIndex + 1 : 0;
+						setIndex();
+						indicator[sliderIndex].classList.add('selected');
+					} else {
+						clearInterval(timer);
+					}
+				}, 1000);
+			}
+
+			//버튼 이름 교체 함수
+			function changeChk(check) {
+				check = !check;
+				if (check) {
+					btn.innerText = 'AutoPlay 중지';
+				} else {
+					btn.innerText = 'AutoPlay 실행';
+				}
+
+				return check;
+			}
+		</script>
+	</body>
+</html>
